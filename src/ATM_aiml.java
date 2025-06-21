@@ -3,11 +3,13 @@ import java.text.*;
 
 class Account_AIML
 {
+    Scanner sc = new Scanner(System.in);
     DecimalFormat DF1 = new DecimalFormat("###,##0.00 'Rupee'");
     private int CN;
     private int b;
 
     double CB=2000;
+    double SB=2000;
 
     void set_Customer_Number(int a)
     {
@@ -29,6 +31,43 @@ class Account_AIML
     {
       // System.out.println("Current Account BAlance : " + CB);
          System.out.println("Current Account BAlance : " + DF1.format(CB));
+    }
+    void get_SavingsBalanace(){
+        System.out.println("Savings Account BAlance : " + DF1.format(SB));
+    }
+    void get_CurrentWithdrawInput(){
+        System.out.println("\nCurrent Account BAlance : " + DF1.format(CB));
+        System.out.println("Enter the Amount You want to withdraw : ");
+        double amount = sc.nextDouble();
+        if((CB - amount)>= 0){
+           calciCurrentWithdraw(amount);
+           System.out.println("\nTranscation Successful");
+           System.out.println("Current Account BAlance : " + DF1.format(CB));
+        }
+        else{
+           System.out.println("Insufficient Balance");
+        }
+    }
+    double calciCurrentWithdraw(double amount){
+         CB = CB-amount;
+         return CB;
+    }
+    void get_SavingWithdrawInput(){
+          System.out.println("Savings Account BAlance : " + DF1.format(SB));
+          System.out.println("Enter the Amount You want to withdraw : ");
+        double amount = sc.nextDouble();
+        if((SB - amount)>= 0){
+           calciSavingsWithdraw(amount);
+           System.out.println("\nTranscation Successful");
+           System.out.println("Saving Account BAlance : " + DF1.format(SB));
+        }
+        else{
+           System.out.println("Insufficient Balance");
+        }
+    }
+    double calciSavingsWithdraw(double amount){
+         SB = SB-amount;
+         return SB;
     }
 }
 class Option_Menu_AIML extends Account_AIML
@@ -119,10 +158,11 @@ class Option_Menu_AIML extends Account_AIML
         switch (ch) {
             case 1:
                 get_CurrentBalanace();
-                
+                get_AccountType();
                 break;
             case 2:
-                
+                get_CurrentWithdrawInput();
+                get_AccountType();
                 break;
             case 3:
                 
@@ -152,10 +192,12 @@ class Option_Menu_AIML extends Account_AIML
 
       switch (ch) {
         case 1:
-            
+            get_SavingsBalanace();
+            get_AccountType();
             break;
             case 2:
-            
+            get_SavingWithdrawInput();
+            get_AccountType();
             break;
             case 3:
             
@@ -163,13 +205,13 @@ class Option_Menu_AIML extends Account_AIML
             case 4:
              System.out.println("\nThankYou for Visting");
              System.out.println("Visit Again");
-                break;    
+             break;    
         
             default:
             System.out.println("\n Invalid Choice");
             System.out.println("Please Enter The Valid choice");
             get_Saving();
-                break;
+            break;
       }
     }
 
